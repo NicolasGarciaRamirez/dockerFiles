@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  postgres_12:
+    image: postgres:12.9
+    restart: always
+    container_name: postgres_12
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789
+    volumes:
+     - postgres_12:/var/lib/postgresql/data/
+    networks:
+      - local_net
+  pgadmin4:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'fernando.zapata.live@gmail.com'
+      PGADMIN_DEFAULT_PASSWORD: 123456789
+    ports:
+      - '8082:80'
+    depends_on:
+      - postgres_12
+    networks:
+      - local_net
+volumes:
+  postgres_12:
+    name: postgres_12
+networks:
+  local_net:
+    name: local_net
+    driver: bridge
+

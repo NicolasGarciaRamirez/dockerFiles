@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    container_name: phpmyadmin:5.2.0
+    ports:
+      - 8080:80
+    environment:
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+      UPLOAD_LIMIT: 300M
+    networks:
+      - local_net
+networks:
+  local_net:
+    name: local_net
+    driver: bridge
+
+
